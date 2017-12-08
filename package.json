@@ -1,0 +1,11 @@
+{
+  "name": "demo",
+  "version": "0.0.1",
+  "description": "tinypng",
+  "scripts": {
+    "build": "node index"
+  },
+  "dependencies": {
+    "tinify": "^1.5.0"
+  }
+}
