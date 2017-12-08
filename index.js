@@ -3,7 +3,7 @@ const tinify = require('tinify')
 
 tinify.key = 'KckuU929qtv_nPK_czL6HKfcAJO9FCKm'
 
-fs.readdir('./img/src', function(err, files) {
+fs.readdir('./img-src', function(err, files) {
   files.shift();
   console.log(files)
   if(err) {
