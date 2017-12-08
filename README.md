@@ -11,6 +11,7 @@
 
 ## 输入
 
+```
 img-src/
 └── abc
     ├── 1.jpg
@@ -22,9 +23,11 @@ img-src/
         ├── demo
         └── logo
             └── 2.jpg
+```
 
 ## 输出
 
+```
 img-compress/
 └── abc
     ├── 1.jpg
@@ -35,3 +38,4 @@ img-compress/
         ├── demo
         └── logo
             └── 2.jpg
+```
