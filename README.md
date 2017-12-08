@@ -2,6 +2,13 @@
 
 * npm run build
 
+## init
+
+* git clone https://github.com/shuoshubao/tinypng.git
+* cd tinypng
+* yarn
+* npm run build
+
 ## 输入
 
 img-src/
