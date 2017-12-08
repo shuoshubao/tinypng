@@ -10,13 +10,13 @@ fs.readdir('./img-src', function(err, files) {
     return console.error(err);
   }
   files.forEach(function(file) {
-    if(fs.statSync('./img/' + file).isDirectory()) {
-      fs.readdir('./img/' + file + '/', function(err, files2) {
+    if(fs.statSync('./img-src/' + file).isDirectory()) {
+      fs.readdir('./img-src/' + file + '/', function(err, files2) {
         if(err) {
           return console.error(err);
         }
         files2.forEach(function(file2) {
-          fs.readFile('./img/' + file + '/' + file2, function(err, sourceData) {
+          fs.readFile('./img-src/' + file + '/' + file2, function(err, sourceData) {
             if(err) {
               throw err;
             }
@@ -24,11 +24,11 @@ fs.readdir('./img-src', function(err, files) {
               if(err) {
                 throw err;
               }
-              fs.open('./img2/' + file + '/' + file2, 'w', function(err) {
+              fs.open('./img-compress/' + file + '/' + file2, 'w', function(err) {
                 if (err) {
                   return console.error(err);
                 }
-                fs.writeFileSync('./img2/' + file + '/' + file2, resultData);
+                fs.writeFileSync('./img-compress/' + file + '/' + file2, resultData);
                 console.log('创建成功！')
               });
             });
@@ -36,7 +36,7 @@ fs.readdir('./img-src', function(err, files) {
         })
       })
     }else {
-      fs.readFile('./img/' + file, function(err, sourceData) {
+      fs.readFile('./img-src/' + file, function(err, sourceData) {
         if(err) {
           throw err;
         }
@@ -44,11 +44,11 @@ fs.readdir('./img-src', function(err, files) {
           if(err) {
             throw err;
           }
-          fs.open('./img2/'+ file, 'w', function(err) {
+          fs.open('./img-compress/'+ file, 'w', function(err) {
             if (err) {
               return console.error(err);
             }
-            fs.writeFileSync('./img2/'+ file, resultData);
+            fs.writeFileSync('./img-compress/'+ file, resultData);
             console.log('创建成功！')
           });
         })
