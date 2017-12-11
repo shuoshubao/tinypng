@@ -9,14 +9,31 @@ fs.readdir('./img-src', function(err, files) {
   if(err) {
     return console.error(err);
   }
-  files.forEach(function(file) {
-    if(fs.statSync('./img-src/' + file).isDirectory()) {
-      fs.readdir('./img-src/' + file + '/', function(err, files2) {
-        if(err) {
-          return console.error(err);
-        }
-        files2.forEach(function(file2) {
-          fs.readFile('./img-src/' + file + '/' + file2, function(err, sourceData) {
+  fs.mkdir(__dirname + '/imgCompress/', function(err) {
+      files.forEach(function(file) {
+        if(fs.statSync('./img-src/' + file).isDirectory()) {
+          fs.mkdir(__dirname + '/imgCompress/'+ file, function(err) {
+            fs.readdir('./img-src/' + file + '/', function(err, files2) {
+              if(err) {
+                return console.error(err);
+              }
+              files2.forEach(function(file2) {
+                fs.readFile('./img-src/' + file + '/' + file2, function(err, sourceData) {
+                  if(err) {
+                    throw err;
+                  }
+                  tinify.fromBuffer(sourceData).toBuffer(function(err, resultData) {
+                    if(err) {
+                      throw err;
+                    }
+                    fs.writeFileSync('./imgCompress/' + file + '/' + file2, resultData);
+                  });
+                })
+              })
+            })
+          });
+        }else {
+          fs.readFile('./img-src/' + file, function(err, sourceData) {
             if(err) {
               throw err;
             }
@@ -24,37 +41,12 @@ fs.readdir('./img-src', function(err, files) {
               if(err) {
                 throw err;
               }
-              fs.open('./img-compress/' + file + '/' + file2, 'w', function(err) {
-                if (err) {
-                  return console.error(err);
-                }
-                fs.writeFileSync('./img-compress/' + file + '/' + file2, resultData);
-                console.log('创建成功！')
-              });
-            });
+              fs.writeFileSync(__dirname + '/imgCompress/' + file, resultData);
+            })
           })
-        })
-      })
-    }else {
-      fs.readFile('./img-src/' + file, function(err, sourceData) {
-        if(err) {
-          throw err;
         }
-        tinify.fromBuffer(sourceData).toBuffer(function(err, resultData) {
-          if(err) {
-            throw err;
-          }
-          fs.open('./img-compress/'+ file, 'w', function(err) {
-            if (err) {
-              return console.error(err);
-            }
-            fs.writeFileSync('./img-compress/'+ file, resultData);
-            console.log('创建成功！')
-          });
-        })
       })
-    }
-  })
+    });
 });
 
 
