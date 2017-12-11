@@ -6,6 +6,8 @@
     "build": "node index"
   },
   "dependencies": {
+    "chalk": "^2.3.0",
+    "glob": "^7.1.2",
     "tinify": "^1.5.0"
   }
 }
